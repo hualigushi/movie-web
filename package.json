@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --env development",
+    "build": "webpack --env production",
+    "lintjs": "eslint app/ webpack.*.js --cache"
   },
   "author": "",
   "license": "ISC",
@@ -12,12 +15,28 @@
     "express": "^4.15.4"
   },
   "devDependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
+    "connect-multiparty": "^2.1.0",
+    "cookie-session": "^2.0.0-beta.3",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
     "jquery": "^3.2.1",
     "jsdom": "^11.2.0",
+    "jshint": "^2.9.5",
     "moment": "^2.18.1",
     "mongoose": "^4.11.10",
-    "pug-cli": "^1.0.0-alpha6"
+    "morgan": "^1.9.0",
+    "nodemon": "^1.12.0",
+    "pug-cli": "^1.0.0-alpha6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.6",
+    "webpack-dev-server": "^2.7.1"
   }
 }

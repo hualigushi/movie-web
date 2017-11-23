@@ -1,14 +1,19 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var ObjectId = Schema.Types.ObjectId;
 
-var MovieSchema=new mongoose.Schema({
-    doctor:String,
-    title:String,
-    language:String,
-    country:String,
-    summary:String,
-    flash:String,
-    poster:String,
-    year:Number,
+var CommentSchema=new mongoose.Schema({
+    movie:{
+        type:ObjectId,
+        ref:'Movie'
+    },//当前评论的电影
+    from:{type:ObjectId,ref:'User'},//评论来自于谁
+    reply:[{
+        from:{type:ObjectId,ref:'User'},//评论来自于谁
+        to:{type:ObjectId,ref:'User'},
+        content:String
+    }],
+    content:String,//具体评论的内容
     meta:{
         createAt:{
             type:Date,
@@ -22,7 +27,7 @@ var MovieSchema=new mongoose.Schema({
 });
 
 //每次在存储数据之前都会调用此方法
-MovieSchema.pre('save',function(next){
+CommentSchema.pre('save',function(next){
     if(this.isNew){//判断数据是否是新加的
         this.meta.createAt=this.meta.updateAt=Date.now();//是的话，就把创建时间和更新时间设置为当前时间
     }else{
@@ -34,7 +39,7 @@ MovieSchema.pre('save',function(next){
 
 //静态方法
 //不会直接与数据库进行交互，只有经过Model编译并且实例化后，才会具有这些方法
-MovieSchema.statics={
+CommentSchema.statics={
     //取出数据库中所有的数据
     fetch:function(cb){
         return this
@@ -45,11 +50,11 @@ MovieSchema.statics={
     //查询单条数据
     findById:function(id,cb){
         return this.
-            findOne({_id:id})
+        findOne({_id:id})
             .exec(cb);
 
     }
 }
 
 //导出模式
-module.exports=MovieSchema;
+module.exports=CommentSchema;
